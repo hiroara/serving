@@ -403,6 +403,9 @@ int main(int argc, char** argv) {
         ->set_intra_op_parallelism_threads(tensorflow_session_parallelism);
     session_bundle_config.mutable_session_config()
         ->set_inter_op_parallelism_threads(tensorflow_session_parallelism);
+    session_bundle_config.mutable_session_config()
+        ->mutable_gpu_options()
+        ->set_per_process_gpu_memory_fraction(0.3);
     options.platform_config_map = CreateTensorFlowPlatformConfigMap(
         session_bundle_config, use_saved_model);
   } else {
